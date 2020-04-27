@@ -8,14 +8,38 @@
 
 import SwiftUI
 
+enum NavigationScreen {
+  case login
+  case register
+  case home
+  
+}
 struct ContentView: View {
+  
+  @Environment(\.managedObjectContext) var managedObjectContext
+  @Environment(\.imageCache) var cache: ImageCache
+  
+  var isUserRegistered: NavigationScreen {
+    return .login
+  }
+  
+  
   var body: some View {
-     NewsListView()
-   }
+    containedView()
+  }
+  
+  func containedView() -> AnyView? {
+    switch isUserRegistered {
+    case .login, .register:
+      return AnyView(LoginView())
+    case .home:
+      return AnyView(NewsListView())
+    }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }

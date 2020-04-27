@@ -8,7 +8,6 @@
 
 import Foundation
 
-let defaultText: String = "N/A"
 let EmptyString = ""
 
 // MARK: - Welcome
@@ -35,6 +34,9 @@ class Article: NSObject, Codable, Identifiable {
     let url: String?
     let urlToImage: String?
     let publishedAt: String?
+    var publishDate: String? {
+      return publishedAt?.convertToDate()
+    }
     let content: String?
 
     enum CodingKeys: String, CodingKey {
@@ -51,37 +53,8 @@ class Article: NSObject, Codable, Identifiable {
     self.url = EmptyString
     self.urlToImage = EmptyString
     self.publishedAt = EmptyString
-    //var publishDate: Date? {return self.publishedAt.toDate(dateFormat: "yyyy-MM-dd'T'HH:mm:ssZ")}
     self.content = EmptyString
   }
-  
-//  required init(from decoder: Decoder) throws {
-//
-//      let container = try decoder.container(keyedBy: CodingKeys.self)
-//      self.author = try container.decodeIfPresent(String.self, forKey: .author) ?? ""
-//      self.title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
-//      self.articleDescription = try container.decodeIfPresent(String.self, forKey: .articleDescription) ?? ""
-//      self.url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""
-//      self.urlToImage = try container.decodeIfPresent(String.self, forKey: .urlToImage) ?? ""
-//      self.publishedAt = try container.decodeIfPresent(String.self, forKey: .publishedAt) ?? ""
-//      self.content = try container.decodeIfPresent(String.self, forKey: .content) ?? ""
-//      self.source = try container.decodeIfPresent(Source.self, forKey: .source) ?? Source()
-//  }
-//
-//  func encode(to encoder: Encoder) throws {
-//
-//      var container = encoder.container(keyedBy: CodingKeys.self)
-//      try container.encode(author, forKey: .author)
-//      try container.encode(title, forKey: .title)
-//      try container.encode(articleDescription, forKey: .articleDescription)
-//      try container.encode(url, forKey: .url)
-//      try container.encode(urlToImage, forKey: .urlToImage)
-//      try container.encode(publishedAt, forKey: .publishedAt)
-//      try container.encode(content, forKey: .content)
-//      try container.encode(source, forKey: .source)
-//    
-//  }
-  
 }
 
 // MARK: - Source
@@ -95,12 +68,4 @@ struct Source: Codable {
   }
 }
 
-extension String {
-func toDate(dateFormat: String, timeZone: TimeZone = TimeZone.current) -> Date? {
-       let frmtr = DateFormatter()
-       frmtr.locale = Locale(identifier: "en_US_POSIX")
-       frmtr.dateFormat = dateFormat
-       frmtr.timeZone = timeZone
-       return frmtr.date(from: self)
-   }
-}
+

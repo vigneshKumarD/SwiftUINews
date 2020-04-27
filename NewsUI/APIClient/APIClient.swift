@@ -47,3 +47,4 @@ public class APIClient: ObservableObject {
         .eraseToAnyPublisher()
      }
   }
+
