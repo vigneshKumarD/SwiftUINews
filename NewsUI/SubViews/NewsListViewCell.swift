@@ -14,19 +14,21 @@ struct NewsListViewCell: View {
   
     var body: some View {
          VStack(alignment: .leading) {
-          Text(article.source?.name ?? "").bold().lineLimit(3)
+          Text(article.title ?? "title").bold().lineLimit(3)
                    Spacer()
-                   HStack {
-                    Text(article.author ?? "").frame(alignment: .leading)
+          HStack(alignment: .bottom, spacing: 5.0) {
+                    Text(article.author ?? "").font(.system(size: 12.0)).frame(alignment: .leading)
                      Spacer()
-                    Text(article.publishedAt ?? "").frame(alignment: .trailing)
+            Text(article.publishDate ?? "").font(.system(size: 10.0)).frame(alignment: .trailing)
                    }
-          }
-    }
+          }.padding()
+           .background(Color.white)
+           .cornerRadius(10)
+  }
 }
 
 struct NewsListViewCell_Previews: PreviewProvider {
     static var previews: some View {
-      NewsListViewCell(article:Article())
-    }
+      NewsListViewCell(article:Article()).fixedSize()
+  }
 }
